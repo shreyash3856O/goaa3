@@ -69,14 +69,20 @@ img { max-width: 100%; display: block; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-.wrap { max-width: 1080px; margin-inline: auto; padding-inline: 1.5rem; }
+.wrap {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
 
 /* Animated Sea Wave Background */
 .sea-wave-bg {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   opacity: 0.35;
 }
@@ -129,7 +135,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* Body sections */
-.main { padding: 1rem 0 6rem; }
+.main { padding: 1rem 0 6rem; position: relative; z-index: 2; }
 
 .section-heading { text-align: center; margin-bottom: 2rem; }
 .section-heading .eyebrow {
@@ -596,6 +602,8 @@ canvas#editorialCanvas {
   text-align: center;
   padding: 2.75rem 1.5rem;
   font-size: var(--fs-small);
+  position: relative;
+  z-index: 2;
 }
 .site-footer .tag {
   font-family: var(--font-display);
