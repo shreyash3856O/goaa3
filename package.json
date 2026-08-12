@@ -1,0 +1,21 @@
+{
+  "name": "hh-goa-2026-editorial-shoreline",
+  "version": "3.0.0",
+  "description": "HH Goa 2026 Official Editorial Shoreline Profile Frame Generator.",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server . -p 8080",
+    "start": "npx http-server . -p 8080"
+  },
+  "keywords": [
+    "hh-goa-2026",
+    "pfp-generator",
+    "editorial-shoreline",
+    "hackathon",
+    "twitter-frame",
+    "canvas",
+    "vercel"
+  ],
+  "author": "HH Goa 2026 Builders",
+  "license": "MIT"
+}
