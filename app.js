@@ -13,11 +13,8 @@
   const ctx = canvas.getContext('2d');
   const fileInput = document.getElementById('fileInput');
   const mainDropzone = document.getElementById('mainDropzone');
-  const heroDropPanel = document.getElementById('heroDropPanel');
   const btnBrowseMain = document.getElementById('btnBrowseMain');
   const btnCameraMain = document.getElementById('btnCameraMain');
-  const fabBrowse = document.getElementById('fabBrowse');
-  const fabCamera = document.getElementById('fabCamera');
   const loadingOverlay = document.getElementById('loadingOverlay');
   const loadingText = document.getElementById('loadingText');
   const controlsToolbar = document.getElementById('controlsToolbar');
@@ -53,7 +50,7 @@
   let webcamStream = null;
 
   let currentTheme = 'forest'; // 'forest', 'lagoon', 'sunset', 'monochrome'
-  let currentCaption = 'shores of goa'; // 'shores of goa', 'february 2026', 'verified builder', 'none'
+  let currentCaption = 'shores of goa'; // 'shores of goa', 'goa 2026', 'verified builder', 'none'
 
   let imgState = {
     x: CANVAS_SIZE / 2,
@@ -114,24 +111,23 @@
 
   function bindEvents() {
     // Browse & Camera Buttons
-    btnBrowseMain.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
-    fabBrowse.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
-    mainDropzone.addEventListener('click', () => fileInput.click());
-    heroDropPanel.addEventListener('click', () => fileInput.click());
+    if (btnBrowseMain) btnBrowseMain.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+    if (mainDropzone) mainDropzone.addEventListener('click', () => fileInput.click());
 
-    btnCameraMain.addEventListener('click', (e) => { e.stopPropagation(); openWebcamModal(); });
-    fabCamera.addEventListener('click', (e) => { e.stopPropagation(); openWebcamModal(); });
+    if (btnCameraMain) btnCameraMain.addEventListener('click', (e) => { e.stopPropagation(); openWebcamModal(); });
 
     fileInput.addEventListener('change', (e) => handleFileSelect(e.target.files));
 
     // Drag & Drop
-    mainDropzone.addEventListener('dragover', (e) => e.preventDefault());
-    mainDropzone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-        handleFileSelect(e.dataTransfer.files);
-      }
-    });
+    if (mainDropzone) {
+      mainDropzone.addEventListener('dragover', (e) => e.preventDefault());
+      mainDropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleFileSelect(e.dataTransfer.files);
+        }
+      });
+    }
 
     // Sample Thumbs
     sampleThumbs.forEach(thumb => {
@@ -240,9 +236,7 @@
     img.onload = () => {
       userImage = img;
       resetImageTransform();
-      mainDropzone.style.display = 'none';
-      heroDropPanel.classList.add('has-photo');
-      heroDropPanel.style.backgroundImage = `url("${url}")`;
+      if (mainDropzone) mainDropzone.style.display = 'none';
       controlsToolbar.classList.add('active');
       showLoading(false);
       renderCanvas();
@@ -398,7 +392,7 @@
     // Inner Card Boundary for Photo Window
     const pad = 70;
     const windowW = CANVAS_SIZE - pad * 2;
-    const windowH = CANVAS_SIZE - pad * 2 - 80; // Leave room for editorial bottom banner
+    const windowH = CANVAS_SIZE - pad * 2 - 80;
 
     if (userImage) {
       ctx.save();
